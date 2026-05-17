@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-paper: #FFFFFE;
+  --color-cream: #EFEDE8;
+  --color-lemon: #F9D67A;
+  --color-lemon-soft: #FCE6A8;
+  --color-sky: #A4C8E1;
+  --color-ink: #2D2A26;
+  --color-body: #6E6B66;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --font-display: var(--font-fraunces);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: var(--color-paper);
+  --foreground: var(--color-body);
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-body);
+}
+
+::selection {
+  background: var(--color-lemon);
+  color: var(--color-ink);
+}
+
+@keyframes accina-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes accina-breathe {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.rise {
+  animation: accina-rise 0.9s ease-out both;
+}
+
+.rise-1 { animation-delay: 0.05s; }
+.rise-2 { animation-delay: 0.25s; }
+.rise-3 { animation-delay: 0.5s; }
+.rise-4 { animation-delay: 0.75s; }
+.rise-5 { animation-delay: 1s; }
+
+.breathe {
+  animation: accina-breathe 4s ease-in-out infinite;
 }
