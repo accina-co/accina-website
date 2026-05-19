@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
+/* === ACCINA Color Tokens — "Rose Honey · Pure" ===
+   Locked 2026-05-19. See BRAND.md for usage rules + WCAG verification.
+   Class names kept stable (paper/cream/lemon/sky/ink/body) for backward compat;
+   colors remapped to Rose Honey Pure values. */
 @theme {
-  --color-paper: #FFFFFE;
-  --color-cream: #EFEDE8;
-  --color-lemon: #F9D67A;
-  --color-lemon-soft: #FCE6A8;
-  --color-sky: #A4C8E1;
-  --color-ink: #2D2A26;
-  --color-body: #6E6B66;
+  --color-paper: #FAFAF7;       /* Background (60%) — warm off-white */
+  --color-card: #FFFFFE;        /* Card BG — clean white above page */
+  --color-primary: #774475;     /* Primary (30%) — deep mauve, AAA-Large */
+  --color-lemon: #F2C261;       /* Accent (10%) — honey gold, fills only */
+  --color-lemon-soft: #FCE6A8;  /* Soft accent — legacy */
+  --color-sky: #E16B77;         /* Secondary — rose, backgrounds/large-text only */
+  --color-cream: #E6D5D6;       /* Muted — pink-grey, borders/dividers */
+  --color-ink: #2A1830;         /* Ink — deep aubergine, headings, AAA 14:1 */
+  --color-body: #535048;        /* Body text — warm grey, AAA 7:1 */
 
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-geist-sans);
