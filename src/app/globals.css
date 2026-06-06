@@ -65,3 +65,106 @@ body {
 .breathe {
   animation: accina-breathe 4s ease-in-out infinite;
 }
+
+/* === Policy page typography ===
+   Used by src/components/PolicyPage.tsx for Privacy / Terms / PDPA / Returns.
+   Keeps long-form legal text scannable while staying on-palette. */
+.prose-policy {
+  color: var(--color-body);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+.prose-policy h2 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+}
+.prose-policy h2:first-child {
+  margin-top: 0;
+}
+.prose-policy h3 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-policy p {
+  margin-bottom: 1rem;
+}
+.prose-policy strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.prose-policy a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s;
+}
+.prose-policy a:hover {
+  text-decoration-color: var(--color-primary);
+}
+.prose-policy ul,
+.prose-policy ol {
+  margin: 0.75rem 0 1.25rem 1.25rem;
+}
+.prose-policy ul {
+  list-style: disc;
+}
+.prose-policy ol {
+  list-style: decimal;
+}
+.prose-policy li {
+  margin-bottom: 0.375rem;
+}
+.prose-policy code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: color-mix(in srgb, var(--color-cream) 60%, transparent);
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+  color: var(--color-ink);
+}
+.prose-policy table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0 1.75rem;
+  font-size: 0.875rem;
+}
+.prose-policy thead {
+  background: color-mix(in srgb, var(--color-cream) 40%, transparent);
+}
+.prose-policy th,
+.prose-policy td {
+  text-align: left;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+  vertical-align: top;
+}
+.prose-policy th {
+  color: var(--color-ink);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.prose-policy blockquote {
+  border-left: 3px solid var(--color-lemon);
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin: 1.25rem 0;
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-lemon) 8%, transparent);
+}
+.prose-policy hr {
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+  margin: 2.5rem 0;
+}

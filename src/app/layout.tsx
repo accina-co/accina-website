@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -45,7 +46,10 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   );
 }

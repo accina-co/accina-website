@@ -1,3 +1,5 @@
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 bg-paper text-body">
@@ -156,33 +158,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 sm:px-12 lg:px-24 pb-16 pt-12 border-t border-ink/10">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-          <div>
-            <p className="font-display text-lg text-ink tracking-[0.2em]">
-              accina
-            </p>
-            <p className="mt-2 text-sm text-body/70">
-              ACCINA Co., Ltd. · Chiang Mai · Founded 2026
-            </p>
-          </div>
-          <div className="flex flex-col sm:items-end gap-1">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-body/50">
-              Say hello
-            </p>
-            <a
-              href="mailto:hello@accina.co"
-              className="text-sm text-ink hover:text-sky transition-colors"
-            >
-              hello@accina.co
-            </a>
-            <p className="mt-2 text-xs text-body/50">
-              © 2026 — for as long as it makes sense.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
