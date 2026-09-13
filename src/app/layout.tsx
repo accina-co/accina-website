@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import Atmosphere from "@/components/Atmosphere";
 import CookieConsent from "@/components/CookieConsent";
+import ScrollReveal from "@/components/ScrollReveal";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -44,9 +46,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-intensity="statement"
       className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
+        <Atmosphere />
+        <ScrollReveal />
         {children}
         <CookieConsent />
       </body>

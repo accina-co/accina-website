@@ -32,14 +32,16 @@ export default function Home() {
       </section>
 
       {/* What we make */}
-      <section className="px-6 sm:px-12 lg:px-24 py-24 bg-cream/40">
-        <div className="max-w-5xl mx-auto">
-          <p className="rise text-xs uppercase tracking-[0.3em] text-body/70 mb-12">
+      <section className="relative overflow-hidden px-6 sm:px-12 lg:px-24 py-24">
+        <div className="orb orb-tr orb-honey" aria-hidden="true" />
+        <div className="orb orb-bl orb-purple" aria-hidden="true" />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <p className="text-xs uppercase tracking-[0.3em] text-body/70 mb-12" data-reveal>
             What we make
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            <article className="rise rise-1">
+            <article className="glass" data-reveal>
               <h2 className="font-display text-2xl text-ink mb-3 tracking-wide flex items-center gap-2">
                 <svg
                   width="20"
@@ -69,7 +71,7 @@ export default function Home() {
               </p>
             </article>
 
-            <article className="rise rise-2">
+            <article className="glass" data-reveal style={{ transitionDelay: "0.08s" }}>
               <h2 className="font-display text-2xl text-ink mb-3 tracking-wide flex items-center gap-2">
                 <svg
                   width="20"
@@ -98,7 +100,7 @@ export default function Home() {
               </p>
             </article>
 
-            <article className="rise rise-3">
+            <article className="glass" data-reveal style={{ transitionDelay: "0.16s" }}>
               <h2 className="font-display text-2xl text-ink mb-3 tracking-wide flex items-center gap-2">
                 <svg
                   width="20"
@@ -132,7 +134,7 @@ export default function Home() {
 
       {/* Philosophy */}
       <section className="px-6 sm:px-12 lg:px-24 py-32">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-2xl mx-auto text-center" data-reveal>
           <p
             aria-hidden="true"
             className="rise text-xs text-paper mb-12 tracking-[0.35em]"
