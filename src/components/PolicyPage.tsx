@@ -20,7 +20,7 @@ export default function PolicyPage({
   children,
 }: PolicyPageProps) {
   return (
-    <div className="flex flex-col flex-1 bg-paper text-body">
+    <div className="flex flex-col flex-1 text-body">
       <header className="px-6 sm:px-12 lg:px-24 pt-16 pb-10 border-b border-ink/5">
         <div className="max-w-3xl mx-auto">
           <Link

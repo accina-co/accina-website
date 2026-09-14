@@ -25,9 +25,14 @@
   --foreground: var(--color-body);
 }
 
-html,
-body {
+html {
   background: var(--color-paper);
+}
+
+/* body ต้องไม่มีพื้นหลังทึบ ไม่งั้นมันจะทับ .atmosphere ที่ z-index:-1
+   (element z-index ติดลบจะถูกวาดหลังพื้นหลังของ parent) */
+body {
+  background: transparent;
   color: var(--color-body);
 }
 
@@ -186,7 +191,8 @@ body {
   --glass-bg: rgba(255, 255, 254, 0.35);
   --glass-border: rgba(255, 255, 254, 0.7);
   --atmo-opacity: 0.45;
-  --atmo-parallax: 0.32;
+  --parallax-strength: 0.32;
+  --atmo-anim: 20s;
   --reveal-distance: 36px;
   --reveal-duration: 0.65s;
   --scroll-y: 0px;
@@ -202,7 +208,8 @@ body {
   --glass-bg: rgba(255, 255, 254, 0.45);
   --glass-border: rgba(255, 255, 254, 0.6);
   --atmo-opacity: 0.28;
-  --atmo-parallax: 0.18;
+  --parallax-strength: 0.15;
+  --atmo-anim: 28s;
   --reveal-distance: 18px;
   --reveal-duration: 0.7s;
 }
@@ -217,49 +224,113 @@ body {
   --glass-bg: rgba(255, 255, 254, 0.55);
   --glass-border: rgba(255, 255, 254, 0.5);
   --atmo-opacity: 0.18;
-  --atmo-parallax: 0.08;
+  --parallax-strength: 0.04;
+  --atmo-anim: 36s;
   --reveal-distance: 8px;
   --reveal-duration: 0.8s;
 }
 
-/* --- orb layer: sits behind everything, never interactive --- */
-.atmo-layer {
+/* --- พื้นหลัง: ยกมาจาก accina-liquid-scroll-concept.html แบบ 1:1 --- */
+.atmosphere {
   position: fixed;
   inset: 0;
-  overflow: hidden;
-  pointer-events: none;
   z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.atmo-shell {
+/* อยู่นิ่งสนิท ไม่ขยับตาม scroll — เนื้อหาไหลผ่านข้างบนคือตัว parallax เอง */
+.atmosphere-orb-shell {
   position: absolute;
-  width: 520px;
-  height: 520px;
+  width: 700px;
+  height: 700px;
   will-change: transform;
-  transform: translateY(var(--scroll-y));
 }
 
-.atmo-orb {
+.atmosphere-orb {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: var(--atmo-opacity);
+  filter: blur(120px);
+  opacity: var(--atmo-opacity, 0.2);
+  transition: opacity 0.6s, filter 0.6s;
   will-change: transform;
 }
-.atmo-a .atmo-orb { filter: blur(120px); }
-.atmo-c .atmo-orb { filter: blur(70px); }
 
-.orb-purple { background: radial-gradient(circle, var(--color-primary), transparent 70%); }
-.orb-honey  { background: radial-gradient(circle, var(--color-lemon), transparent 70%); }
-.orb-rose   { background: radial-gradient(circle, var(--color-sky), transparent 70%); }
+.atmo-purple-shell   { top: -15%; left: -10%; }
+.atmo-rose-shell     { top: 35%; right: -12%; }
+.atmo-honey-shell    { bottom: -20%; left: 30%; }
+.atmo-purple-2-shell { top: 55%; left: -15%; --shell-scale: 0.85; transform: scale(var(--shell-scale)); }
+.atmo-rose-2-shell   { top: -10%; right: 25%; --shell-scale: 0.75; transform: scale(var(--shell-scale)); }
+.atmo-honey-2-shell  { top: 75%; right: 5%;  --shell-scale: 0.8;  transform: scale(var(--shell-scale)); }
 
-.atmo-a { top: -8%; left: -10%; width: 700px; height: 700px; }
-.atmo-a .atmo-orb { animation: orb-drift-1 var(--orb-anim-duration) ease-in-out infinite; }
-.atmo-b { bottom: -12%; left: 32%; width: 620px; height: 620px; }
-.atmo-b .atmo-orb { animation: orb-drift-3 calc(var(--orb-anim-duration) * 0.9) ease-in-out infinite; }
-.atmo-c { top: 26%; right: -10%; width: 400px; height: 400px; }
-.atmo-c .atmo-orb { animation: orb-drift-2 calc(var(--orb-anim-duration) * 1.2) ease-in-out infinite; }
+.atmo-purple, .atmo-purple-2 { background: radial-gradient(circle, var(--color-primary), transparent 65%); }
+.atmo-rose,   .atmo-rose-2   { background: radial-gradient(circle, var(--color-sky), transparent 65%); }
+.atmo-honey,  .atmo-honey-2  { background: radial-gradient(circle, var(--color-lemon), transparent 65%); }
+
+.atmo-purple   { animation: atmo-breathe-1 var(--atmo-anim, 30s) ease-in-out infinite; }
+.atmo-rose     { animation: atmo-breathe-2 calc(var(--atmo-anim, 30s) * 1.2) ease-in-out infinite; }
+.atmo-honey    { animation: atmo-breathe-3 calc(var(--atmo-anim, 30s) * 0.85) ease-in-out infinite; }
+.atmo-purple-2 { animation: atmo-breathe-2 calc(var(--atmo-anim, 30s) * 1.4) ease-in-out infinite; }
+.atmo-rose-2   { animation: atmo-breathe-3 calc(var(--atmo-anim, 30s) * 1.1) ease-in-out infinite; }
+.atmo-honey-2  { animation: atmo-breathe-1 calc(var(--atmo-anim, 30s) * 1.3) ease-in-out infinite; }
+
+@keyframes atmo-breathe-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.08); }
+}
+@keyframes atmo-breathe-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 40px) scale(0.95); }
+}
+@keyframes atmo-breathe-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 50px) scale(1.05); }
+}
+
+@media (max-width: 900px) {
+  .atmosphere-orb-shell { width: 520px; height: 520px; }
+  .atmosphere-orb { filter: blur(90px); }
+}
+@media (max-width: 600px) {
+  .atmosphere-orb-shell { width: 400px; height: 400px; }
+  .atmosphere-orb { filter: blur(70px); }
+  .atmo-purple-2-shell,
+  .atmo-rose-2-shell,
+  .atmo-honey-2-shell { display: none; }
+}
+
+/* --- orb เฉพาะ section: ให้พื้นหลังนัว ๆ ฟุ้ง ๆ แทนแถบสีทึบ --- */
+/* ต้นฉบับซ่อน orb ใน section ทั้งหมด ให้พื้นหลัง 6 ลูกทำสีคนเดียว
+   (คอมเมนต์ในไฟล์ concept: "Section orbs HIDDEN — fixed atmosphere carries the whole color layer now")
+   เปิดกลับได้ด้วย <html data-section-orbs="on"> ใน layout.tsx */
+.orb-shell { display: none; }
+[data-section-orbs="on"] .orb-shell { display: block; }
+
+.orb-shell {
+  position: absolute;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+.orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  filter: blur(var(--orb-blur));
+  opacity: var(--orb-opacity);
+}
+/* สีของ orb ใน section — โดนลบไปตอนแทนบล็อก คืนกลับมา */
+.orb-purple { background: radial-gradient(circle, var(--color-primary), transparent 65%); }
+.orb-honey  { background: radial-gradient(circle, var(--color-lemon), transparent 65%); }
+.orb-rose   { background: radial-gradient(circle, var(--color-sky), transparent 65%); }
+
+.orb-tr { top: -10%; right: -10%; }
+.orb-bl { bottom: -20%; left: -10%; }
+.orb-tr .orb { animation: orb-drift-2 calc(var(--orb-anim-duration) * 1.1) ease-in-out infinite; }
+.orb-bl .orb { animation: orb-drift-1 calc(var(--orb-anim-duration) * 1.3) ease-in-out infinite; }
 
 @keyframes orb-drift-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -269,25 +340,23 @@ body {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(calc(var(--orb-anim-distance) * -0.8), var(--orb-anim-distance)) scale(0.95); }
 }
+
 @keyframes orb-drift-3 {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(calc(var(--orb-anim-distance) * 0.5), var(--orb-anim-distance)) scale(1.08); }
 }
 
-/* --- orb เฉพาะ section: ให้พื้นหลังนัว ๆ ฟุ้ง ๆ แทนแถบสีทึบ --- */
-.orb {
-  position: absolute;
-  width: var(--orb-size);
-  height: var(--orb-size);
-  border-radius: 50%;
-  filter: blur(var(--orb-blur));
-  opacity: var(--orb-opacity);
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
-.orb-tr { top: -10%; right: -10%; animation: orb-drift-2 calc(var(--orb-anim-duration) * 1.1) ease-in-out infinite; }
-.orb-bl { bottom: -20%; left: -10%; animation: orb-drift-1 calc(var(--orb-anim-duration) * 1.3) ease-in-out infinite; }
+/* ตำแหน่ง orb ราย section — ยกจากต้นฉบับทุกค่า
+   shell = ตำแหน่ง + parallax (JS) · orb ข้างใน = ลอยด้วย CSS */
+.sec-hero .orb-s1 { top: -8%; left: -10%; }
+.sec-hero .orb-s2 { bottom: -10%; left: 35%; }
+.sec-hero .orb-s3 { top: 30%; right: -8%; }
+.sec-hero .orb-s1 .orb { animation: orb-drift-1 var(--orb-anim-duration) ease-in-out infinite; }
+.sec-hero .orb-s2 .orb { animation: orb-drift-3 calc(var(--orb-anim-duration) * 0.9) ease-in-out infinite; }
+.sec-hero .orb-s3 .orb { animation: orb-drift-2 calc(var(--orb-anim-duration) * 1.2) ease-in-out infinite; }
+
+.sec-quote .orb-s1 { top: 30%; left: calc(50% - var(--orb-size) / 2); }
+.sec-quote .orb-s1 .orb { animation: orb-drift-3 calc(var(--orb-anim-duration) * 1.7) ease-in-out infinite; }
 
 /* --- frosted glass surface --- */
 .glass {
@@ -306,23 +375,42 @@ body {
   box-shadow: 0 12px 40px rgba(42, 24, 48, 0.1);
 }
 
-/* --- scroll reveal --- */
-[data-reveal] {
+/* --- scroll reveal: ยกจากต้นฉบับ 1:1 --- */
+.reveal {
   opacity: 0;
   transform: translateY(var(--reveal-distance));
-  transition: opacity var(--reveal-duration) ease-out, transform var(--reveal-duration) ease-out;
+  transition: opacity var(--reveal-duration) ease-out,
+              transform var(--reveal-duration) ease-out;
 }
-[data-reveal].in {
+.reveal.in {
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
 }
+.reveal-1 { transition-delay: 0.05s; }
+.reveal-2 { transition-delay: 0.2s; }
+.reveal-3 { transition-delay: 0.35s; }
+.reveal-4 { transition-delay: 0.5s; }
+.reveal-5 { transition-delay: 0.65s; }
+
+/* เลื่อนเข้าจากข้าง — สปริงเด้งนิด ๆ ตัวนี้คือความรู้สึก "liquid" ตอน scroll */
+.slide-l,
+.slide-r {
+  opacity: 0;
+  transition: opacity 0.9s ease-out,
+              transform 0.9s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.slide-l { transform: translateX(-60px); }
+.slide-r { transform: translateX(60px); }
+.slide-l.in,
+.slide-r.in { opacity: 1; transform: translateX(0); }
 
 @media (prefers-reduced-motion: reduce) {
-  .atmo-orb, .orb { animation: none !important; }
+  .atmosphere-orb, .orb { animation: none !important; }
+  .orb-shell { transform: none !important; }
   .atmo-shell { transform: none !important; }
   .glass { transition: none; }
-  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .reveal, .slide-l, .slide-r { transition: opacity 0.4s ease-out; transform: none !important; }
 }
 
 /* JS ปิดอยู่ → แสดงเนื้อหาตามปกติ ไม่ค้างเป็นหน้าว่าง */
-.no-js [data-reveal] { opacity: 1; transform: none; }
+.no-js .reveal, .no-js .slide-l, .no-js .slide-r { opacity: 1; transform: none; }

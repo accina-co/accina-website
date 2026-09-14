@@ -2,10 +2,13 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 bg-paper text-body">
+    <div className="flex flex-col flex-1 text-body">
       {/* Hero */}
-      <section className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-24 pt-32 pb-24">
-        <div className="max-w-3xl">
+      <section className="sec-hero relative overflow-hidden flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-24 pt-32 pb-24">
+        <div className="orb-shell orb-s1" aria-hidden="true"><div className="orb orb-purple" /></div>
+        <div className="orb-shell orb-s2" aria-hidden="true"><div className="orb orb-honey" /></div>
+        <div className="orb-shell orb-s3" aria-hidden="true"><div className="orb orb-rose" /></div>
+        <div className="relative z-10 max-w-3xl">
           <p className="rise rise-1 text-xs uppercase tracking-[0.35em] text-body/70 mb-10">
             Est. 2026
           </p>
@@ -33,15 +36,19 @@ export default function Home() {
 
       {/* What we make */}
       <section className="relative overflow-hidden px-6 sm:px-12 lg:px-24 py-24">
-        <div className="orb orb-tr orb-honey" aria-hidden="true" />
-        <div className="orb orb-bl orb-purple" aria-hidden="true" />
+        <div className="orb-shell orb-tr" aria-hidden="true">
+          <div className="orb orb-honey" />
+        </div>
+        <div className="orb-shell orb-bl" aria-hidden="true">
+          <div className="orb orb-purple" />
+        </div>
         <div className="relative z-10 max-w-5xl mx-auto">
-          <p className="text-xs uppercase tracking-[0.3em] text-body/70 mb-12" data-reveal>
+          <p className="reveal text-xs uppercase tracking-[0.3em] text-body/70 mb-12">
             What we make
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            <article className="glass" data-reveal>
+            <article className="reveal reveal-1 glass">
               <h2 className="font-display text-2xl text-ink mb-3 tracking-wide flex items-center gap-2">
                 <svg
                   width="20"
@@ -71,7 +78,7 @@ export default function Home() {
               </p>
             </article>
 
-            <article className="glass" data-reveal style={{ transitionDelay: "0.08s" }}>
+            <article className="reveal reveal-2 glass">
               <h2 className="font-display text-2xl text-ink mb-3 tracking-wide flex items-center gap-2">
                 <svg
                   width="20"
@@ -100,7 +107,7 @@ export default function Home() {
               </p>
             </article>
 
-            <article className="glass" data-reveal style={{ transitionDelay: "0.16s" }}>
+            <article className="reveal reveal-3 glass">
               <h2 className="font-display text-2xl text-ink mb-3 tracking-wide flex items-center gap-2">
                 <svg
                   width="20"
@@ -133,24 +140,25 @@ export default function Home() {
       </section>
 
       {/* Philosophy */}
-      <section className="px-6 sm:px-12 lg:px-24 py-32">
-        <div className="max-w-2xl mx-auto text-center" data-reveal>
+      <section className="sec-quote relative overflow-hidden px-6 sm:px-12 lg:px-24 py-32">
+        <div className="orb-shell orb-s1" aria-hidden="true"><div className="orb orb-rose" /></div>
+        <div className="relative z-10 max-w-2xl mx-auto text-center">
           <p
             aria-hidden="true"
             className="rise text-xs text-paper mb-12 tracking-[0.35em]"
           >
             अनिच्च
           </p>
-          <p className="rise rise-1 font-display text-2xl sm:text-3xl text-ink leading-relaxed tracking-wide">
+          <p className="reveal reveal-1 font-display text-2xl sm:text-3xl text-ink leading-relaxed tracking-wide">
             All that arises, passes away.
           </p>
-          <p className="rise rise-2 mt-6 font-display text-2xl sm:text-3xl text-ink leading-relaxed tracking-wide">
+          <p className="reveal reveal-2 mt-6 font-display text-2xl sm:text-3xl text-ink leading-relaxed tracking-wide">
             Nothing stays.
           </p>
-          <p className="rise rise-3 mt-6 font-display text-2xl sm:text-3xl text-ink leading-relaxed tracking-wide">
+          <p className="reveal reveal-3 mt-6 font-display text-2xl sm:text-3xl text-ink leading-relaxed tracking-wide">
             What remains is how we care.
           </p>
-          <div className="rise rise-4 mt-14 flex items-center justify-center gap-3">
+          <div className="reveal reveal-4 mt-14 flex items-center justify-center gap-3">
             <span className="inline-block w-8 h-px bg-ink/30" />
             <span className="text-xs uppercase tracking-[0.35em] text-body/60 breathe">
               The thread
